@@ -1,7 +1,7 @@
 import discord
 intents = discord.Intents.default()   #網關預設值
 intents.typing = False
-intents.presences = False
+intents.presences = True
 intents.members = True
 from discord.ext import commands
 import json

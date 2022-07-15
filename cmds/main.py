@@ -1,14 +1,16 @@
 from datetime import datetime
+from random import Random, random
 from click import command
 import discord
 intents = discord.Intents.default()   #網關預設值
 intents.typing = False
-intents.presences = False
+intents.presences = True
 intents.members = True
 from discord.ext import commands
 from core.classes import Cog_Extension
 import datetime
 from datetime import datetime,timezone,timedelta
+import random,re
 
 class Main(Cog_Extension):
 
@@ -46,10 +48,103 @@ class Main(Cog_Extension):
         #清除num筆訊息，purge訊息刪除
         await ctx.channel.purge(limit=num+1)
     
-    #@commands.command()
-    #async def random_squad(self,ctx):
+    @commands.command()
+    async def cmdA(self,ctx,num:float):
+        await ctx.send(num)
+
+    @commands.command()
+    async def cmdB(self,ctx,num):
+        await ctx.send(num)
+        
+    @commands.command()
+    async def random_squad(self,ctx):
+        online = []
         #我 所在的伺服器 = ctx.guild
-        #列出伺服器所有成員 = ctx.guild.members 
+        #列出伺服器所有成員 = ctx.guild.members 出來的是array
+        for member in ctx.guild.member:
+            print(member.status)
+        #判斷每個成員的在線狀態
+        #if 成員狀態 == 在線:
+            #就把該成員加到online list
+            if str(member.status) == 'online' and member.bot == False:
+                online.append(member.name)
+        
+        #選出不重複的5人
+        ramdom_online = random.sample(online, k=20)
+        for squad in range(4):
+            x = random.sample(ramdom_online, k=5)
+            await ctx.send(f'第{squad+1}小隊：' + str(x))
+            #移除已取完的人
+            for name in x:
+                ramdom_online.remove(name)
+    
+    @commands.command()
+    async def group(self, ctx, msg, num1:int, num:int):
+        msg1 = str(msg)
+        box = msg1.split(",")
+        for a in range(num):
+            x = random.sample(box, k=num1)
+            x1 = str(x)
+            x2 = re.sub("\'|\[|\]","",x1)
+            await ctx.send(f'第{a+1}組為：' + x2)
+            for name in x:
+                box.remove(name)
+    
+    @commands.command()
+    async def jack(self, ctx, msg, num:int, award): 
+        #num總獎項數 award各獎項人數
+        #總人數
+        msg1 = str(msg)
+        box = msg1.split(",")
+        #各獎項人數
+        award1 = str(award)
+        award2 = award1.split(",")
+        if len(award2) > 1 :
+            for a in range(num):
+                num1 = int(award2[a])
+                x = random.sample(box, k=num1)
+                x1 = str(x)
+                x2 = re.sub("\'|\[|\]","",x1)
+                await ctx.send(f'{a+1}獎：' + x2)
+                for name in x:
+                    box.remove(name)
+        elif len(award2) == 1 :
+            for a in range(num):
+                award3 = int(award)
+                x = random.sample(box, k=award3)
+                x1 = str(x)
+                x2 = re.sub("\'|\[|\]","",x1)
+                await ctx.send(f'{a+1}獎：' + x2)
+                for name in x:
+                    box.remove(name)    
+
+    @commands.command()
+    async def ch_group(self,ctx,num:int,num1:int):
+        online = []
+        for member in ctx.channel.members:
+            #abc = member + member.status
+            if member.bot == False:
+                online.append(member.name)
+        for squad in range(num1):
+            rd_group = random.sample(online, k=num)
+            await ctx.send(f'第{squad+1}組：' + str(rd_group))
+    
+
+
+    # @commands.group()
+    # async def codetest(self,ctx):
+    #     pass
+
+    # @codetest.command()
+    # async def python(self,ctx):
+    #     await ctx.send("Python") 
+    # @codetest.command()
+    # async def javascript(self,ctx):
+    #     await ctx.send("javascript")     
+    # @codetest.command()
+    # async def cpp(self,ctx):
+    #     await ctx.send("C++") 
+    
 
 
 
