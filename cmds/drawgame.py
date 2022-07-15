@@ -16,9 +16,9 @@ class Draw(Cog_Extension):
         super().__init__(*args, **kwargs)
 
         self.counter = 0
-
+        self.counter1 = 0
     @commands.command()
-    async def drawset(self,ctx,name,num:int):
+    async def adrawset(self,ctx,name,num:int):
         all = []
         self.counter = 0
         with open('draw.json', 'r', encoding='utf8') as jfile:
@@ -51,7 +51,7 @@ class Draw(Cog_Extension):
             await ctx.send("人數與號碼數不符合！請重新輸入！")
     
     @commands.command()
-    async def draw(self,ctx):
+    async def adraw(self,ctx):
         print(self.counter)
         if self.counter == 1 :
             with open('draw.json', 'r', encoding='utf8') as jfile:
@@ -74,13 +74,51 @@ class Draw(Cog_Extension):
                     with open('draw.json', 'w', encoding='utf8') as jfile:
                         json.dump(box,jfile,indent=4)
                     self.counter = 0
-                    
                     return
         else:
             await ctx.send("請先設定抽籤筒！")
             return
 
-
+    @commands.command()
+    async def drawset(self,ctx):
+        all = ["A♤","A♡","A♢","A♧","2♤","2♡","2♢","2♧","3♤","3♡","3♢","3♧","4♤","4♡","4♢","4♧","5♤","5♡","5♢","5♧","6♤","6♡","6♢","6♧","7♤","7♡","7♢","7♧","8♤","8♡","8♢","8♧","9♤","9♡","9♢","9♧","10♤","10♡","10♢","10♧","J♤","J♡","J♢","J♧","Q♤","Q♡","Q♢","Q♧","K♤","K♡","K♢","K♧","JOKER(A)","JOKER(B)"]
+        self.counter1 = 0
+        with open('card.json', 'r', encoding='utf8') as jfile:
+            jdata = json.load(jfile)
+        jdata['card'] = all
+        with open('card.json', 'w', encoding='utf8') as jfile:
+            json.dump(jdata, jfile, indent=4)
+        self.counter1 = 1
+        await ctx.send(f"撲克牌牌底已準備完成！請開始遊玩～")
+    
+    @commands.command()
+    async def draw(self,ctx):
+        print(self.counter)
+        if self.counter1 == 1 :
+            with open('card.json', 'r', encoding='utf8') as jfile:
+                jdata = json.load(jfile)
+            all2 = jdata['card']
+            draw_num = random.sample(all2, k=1)
+            draw_num1 = str(draw_num)
+            draw_num2 = re.sub("\'|\[|\]","",draw_num1)
+            await ctx.send(f"抽到{draw_num2}牌！")
+            all2.remove(draw_num2)
+            jdata = { "card": all2} 
+            with open('card.json', 'w', encoding='utf8') as jfile:
+                json.dump(jdata,jfile,indent=4)
+            if len(all2) != 0:
+                pass
+            else:
+                await ctx.send("撲克牌已抽取完畢！")
+                jdata = { "card":[]}
+                all2 = jdata
+                with open('card.json', 'w', encoding='utf8') as jfile:
+                    json.dump(all2,jfile,indent=4)
+                self.counter1 = 0
+                return
+        else:
+            await ctx.send("請先設定撲克牌！")
+            return
 
 
 
