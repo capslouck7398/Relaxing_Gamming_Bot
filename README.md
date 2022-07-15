@@ -31,7 +31,12 @@
   ..s ssp
 - 設定籤筒&抽籤  
   1. 設定籤筒  
-     ..s drawset {人} {籤數}        
+     ..s adrawset {人} {籤數}        
      #例如： ..s drawset a,b,c,d,e 5
   2. 抽籤  
+     ..s adraw  
+- 抽鬼牌！  
+  1. 設定牌組  
+     ..s drawset  
+  2. 抽牌  
      ..s draw  
