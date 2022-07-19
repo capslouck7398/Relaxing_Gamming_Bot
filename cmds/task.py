@@ -17,14 +17,14 @@ class Task(Cog_Extension):
 
         self.counter = 0
 
-        # async def interval():
-        #     await self.bot.wait_until_ready()
-        #     self.channel = self.bot.get_channel(992744191379644456)
-        #     while not self.bot.is_closed():
-        #         await self.channel.send(f"HI i'm running!")
-        #         await asyncio.sleep(5)  #單位:秒
+        async def interval():
+            await self.bot.wait_until_ready()
+            self.channel = self.bot.get_channel(992744191379644456)
+            while not self.bot.is_closed():
+                await self.channel.send(f"HI i'm running!")
+                await asyncio.sleep(5)  #單位:秒
 
-        # self.bg_task = self.bot.loop.create_task(interval())
+        self.bg_task = self.bot.loop.create_task(interval())
     
 
         async def time_task():

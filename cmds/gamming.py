@@ -52,7 +52,7 @@ class Gamming(Cog_Extension):
     async def 無聲鈴鹿(self, ctx):
         random_image_1_2 = random.choice(jdata['image_1_2'])
         embed=discord.Embed(title="無聲鈴鹿", url="https://ja.wikipedia.org/wiki/%E3%82%B5%E3%82%A4%E3%83%AC%E3%83%B3%E3%82%B9%E3%82%B9%E3%82%BA%E3%82%AB", description="サイレンススズカ", color=0x00ffff, timestamp= datetime.utcnow())
-        embed.set_author(name="賽馬娘Pretty Derby", url=jdata['uma_wiki_url'], icon_url="https://upload.wikimedia.org/wikipedia/zh/e/ed/Umamusume_logo.png")
+        embed.set_author(name="賽馬娘Pretty Derby", url=jdata['uma_wiki_url'], icon_url=jdata['uma_logo'])
         embed.set_thumbnail(url=jdata['image_1_2_0'])
         embed.set_image(url=random_image_1_2)
         embed.add_field(name="CV：", value="高野麻里佳", inline=True)
