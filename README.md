@@ -6,6 +6,33 @@
 ![logo](https://media.discordapp.net/attachments/958710598881910795/992657664939143208/unknown.png)
 
 ### - 更新紀錄！
+
+#### - 2022/08/30
+- 簡易計算機
+  ..s c {算式}
+  #例如 (3+3)*3
+  #例如 3*math.log(2,10)
+  #例如 3*math.sin(math.pi/2)
+
+- 公主連結扭蛋！
+  1. 十連扭蛋
+     ..s gapcr
+  2. 指定次數扭蛋
+     ..s gapcrt {次數}
+     #例如 ..s gapcrt 100
+
+- 賽馬娘扭蛋！
+  1. 十連角色池扭蛋
+     ..s gauma
+  2. 十連支援卡扭蛋
+     ..s gaumas
+  3. 指定次數角色池扭蛋
+     ..s gaumat {次數}
+     #例如 ..s gaumat 100
+  4. 指定次數支援卡扭蛋
+     ..s gaumast {次數}
+     #例如 ..s gaumast 100
+     
 #### - 2022/07/19
 
 - 自動回話  
