@@ -5,7 +5,7 @@ intents.presences = False
 intents.members = True
 from discord.ext import commands
 from core.classes import Cog_Extension
-import random, json
+import random, json, math
 
 with open('setting.json', 'r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
@@ -22,6 +22,14 @@ class React(Cog_Extension):
         random_bl_pic = random.choice(jdata['bl_pic'])
         #pic = discord.File(random_pic)  #傳送指定位置圖片
         await ctx.send(random_bl_pic)
+    
+    @commands.command()
+    async def c(self, ctx, num1):
+        try:
+            a = str(round(float(eval(num1)),5))
+        except:
+            pass
+        await ctx.send("聰明的機器人計算結果為：" + a)
 
     # @commands.command()
     # async def rdtest(self, ctx):

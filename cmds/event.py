@@ -24,17 +24,20 @@ class Event(Cog_Extension):
 
     @commands.Cog.listener()
     async def on_message(self, msg):
-        a = ['你是誰']
+        a = ['你是誰', '妳是誰']
         b = ['講個笑話']
+        c = ['123']
         #if msg.content.endswith('apple'):
         if msg.content in a and msg.author != self.bot.user:
-            await msg.channel.send('最可愛的Bot ٩(◦`꒳´◦)۶')
+            await msg.channel.send('最可愛的Bot ٩(◦`꒳´◦)۶') 
         elif msg.content in b and msg.author != self.bot.user:
             b1 = random.sample(jdata['laugh'],k=1)
             b2 = str(b1)
             b3 = re.sub("\'|\[|\]","",b2)
             await msg.channel.send(b3)
-    
+        elif msg.content in c and msg.author != self.bot.user:
+            await msg.channel.send("<:586274997723594844:966893320536207360>")
+
     # 處理"指令"發生的錯誤 Error Handler
     # @commands.Cog.listener()
     # async def on_command_error(self, ctx, error):
